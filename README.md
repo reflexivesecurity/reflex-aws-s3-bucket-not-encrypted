@@ -10,7 +10,7 @@ providers:
   - aws
 
 measures:
-  - aws-enforce-s3-encryption:
+  - reflex-aws-enforce-s3-encryption:
       email: "example@example.com"
 ```
 
