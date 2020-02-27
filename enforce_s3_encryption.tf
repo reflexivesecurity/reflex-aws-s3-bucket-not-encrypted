@@ -52,5 +52,4 @@ EOF
   target_id = "EnforceS3Encryption"
 
   sns_topic_arn = var.sns_topic_arn
-  email      = var.email
 }
