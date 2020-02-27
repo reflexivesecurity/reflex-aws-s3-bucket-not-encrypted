@@ -1,5 +1,5 @@
 module "enforce_s3_encryption" {
-  source           = "git@github.com:cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=central_sns_default"
+  source           = "git@github.com:cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=0.2.0"
   rule_name        = "EnforceS3Encryption"
   rule_description = "Rule to enforce S3 bucket encryption"
 
