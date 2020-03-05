@@ -23,12 +23,15 @@ module "enforce_s3_encryption" {
 }
 PATTERN
 
-  function_name            = "EnforceS3Encryption"
-  source_code_dir          = "${path.module}/source"
-  handler                  = "s3_encryption.lambda_handler"
-  lambda_runtime           = "python3.7"
-  environment_variable_map = { SNS_TOPIC = var.sns_topic_arn }
-  custom_lambda_policy     = <<EOF
+  function_name   = "EnforceS3Encryption"
+  source_code_dir = "${path.module}/source"
+  handler         = "s3_encryption.lambda_handler"
+  lambda_runtime  = "python3.7"
+  environment_variable_map = {
+    SNS_TOPIC = var.sns_topic_arn,
+    MODE      = var.mode
+  }
+  custom_lambda_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -51,6 +54,6 @@ EOF
 
   target_id = "EnforceS3Encryption"
 
-  sns_topic_arn = var.sns_topic_arn
+  sns_topic_arn  = var.sns_topic_arn
   sqs_kms_key_id = var.reflex_kms_key_id
 }
