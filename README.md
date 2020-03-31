@@ -33,7 +33,7 @@ Note: The `sns_topic_arn` and `reflex_kms_key_id` example values shown here assu
 This rule has the following configuration options:
 
 <dl>
-  <dt><b>mode</b></dt>
+  <dt>mode</dt>
   <dd>
   <p>Sets the rule to operate in <code>detect</code> or <code>remediate</code> mode.</p>
 
