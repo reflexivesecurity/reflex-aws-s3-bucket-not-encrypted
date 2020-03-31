@@ -39,6 +39,8 @@ This rule has the following configuration options:
 
   <em>Required</em>: No  
 
+  <em>Type</em>: string
+
   <em>Possible values</em>: `detect` | `remediate`  
 
   <em>Default</em>: `detect`
