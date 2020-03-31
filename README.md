@@ -11,7 +11,7 @@ To use this rule either add it to your `reflex.yaml` configuration file:
 ```
 rules:
   aws:
-    - reflex-aws-enforce-s3-encryption:
+    - enforce-s3-encryption:
         configuration:
           mode: remediate
         version: latest
@@ -20,7 +20,7 @@ rules:
 or add it directly to your Terraform:  
 ```
 module "enforce-s3-encryption" {
-  source            = "git::https://github.com/cloudmitigator/reflex-aws-enforce-s3-encryption.git"
+  source            = "git::https://github.com/cloudmitigator/reflex-aws-enforce-s3-encryption.git?ref=latest"
   sns_topic_arn     = module.central-sns-topic.arn
   reflex_kms_key_id = module.reflex-kms-key.key_id
   mode              = "remediate"
