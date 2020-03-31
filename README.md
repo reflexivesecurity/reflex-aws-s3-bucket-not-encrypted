@@ -35,7 +35,7 @@ This rule has the following configuration options:
 <dl>
   <dt><b>mode</b></dt>
   <dd>
-  Sets the rule to operate in `detect` or `remediate` mode.  
+  <p>Sets the rule to operate in `detect` or `remediate` mode.</p>
 
   <em>Required</em>: No  
 
