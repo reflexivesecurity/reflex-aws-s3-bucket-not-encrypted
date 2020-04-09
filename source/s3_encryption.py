@@ -47,7 +47,11 @@ class S3EncryptionRule(AWSRule):
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
-        return f"The S3 bucket {self.bucket_name} was unencrypted. AES-256 encryption was enabled."
+        message = f"The S3 bucket {self.bucket_name} was unencrypted. "
+        if self.should_remediate():
+            message += "AES-256 encryption was enabled."
+
+        return message
 
 
 def lambda_handler(event, _):
