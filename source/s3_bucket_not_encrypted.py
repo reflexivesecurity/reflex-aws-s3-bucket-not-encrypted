@@ -1,4 +1,4 @@
-""" Module for enforcing S3EncryptionRule """
+""" Module for enforcing S3BucketNotEncrypted """
 
 import json
 import os
@@ -7,7 +7,7 @@ import boto3
 from reflex_core import AWSRule
 
 
-class S3EncryptionRule(AWSRule):
+class S3BucketNotEncrypted(AWSRule):
     """ AWS rule for ensuring S3 bucket encryption """
 
     client = boto3.client("s3")
@@ -57,5 +57,5 @@ class S3EncryptionRule(AWSRule):
 def lambda_handler(event, _):
     """ Handles the incoming event """
     print(event)
-    s3_rule = S3EncryptionRule(json.loads(event["Records"][0]["body"]))
+    s3_rule = S3BucketNotEncrypted(json.loads(event["Records"][0]["body"]))
     s3_rule.run_compliance_rule()
