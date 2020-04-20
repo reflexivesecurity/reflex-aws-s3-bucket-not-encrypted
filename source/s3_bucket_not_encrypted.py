@@ -1,7 +1,6 @@
 """ Module for enforcing S3BucketNotEncrypted """
 
 import json
-import os
 
 import boto3
 from reflex_core import AWSRule
@@ -21,9 +20,11 @@ class S3BucketNotEncrypted(AWSRule):
         self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
 
     def resource_compliant(self):
+        """ Check if the resource is compliant. Return True if compliant, False otherwise """
         return self.bucket_encrypted()
 
     def remediate(self):
+        """ Fix the non-compliant resource """
         self.encrypt_bucket()
 
     def bucket_encrypted(self):
