@@ -4,7 +4,7 @@ import time
 import uuid
 
 import boto3
-from behave import *  # pylint: disable=wildcard-import
+from behave import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from reflex_acceptance_common import ReflexAcceptance
 
 S3_CLIENT = boto3.client("s3")
@@ -26,7 +26,7 @@ def delete_bucket(bucket_name):
 
 
 def get_message_from_queue(queue_url):
-    time.sleep(45)
+    time.sleep(100)
     message = SQS_CLIENT.receive_message(QueueUrl=queue_url, WaitTimeSeconds=20)
     message_body = message["Messages"][0]["Body"]
     return message_body
