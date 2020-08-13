@@ -23,3 +23,9 @@ variable "mode" {
   type        = string
   default     = "detect"
 }
+
+variable "package_location" {
+  description = "Path for the Lambda deployment package"
+  type        = string
+  default     = "../package_build/s3-bucket-not-encrypted.zip"
+}
