@@ -4,7 +4,7 @@ module "sqs_lambda" {
   cloudwatch_event_rule_id  = var.cloudwatch_event_rule_id
   cloudwatch_event_rule_arn = var.cloudwatch_event_rule_arn
   function_name             = "S3BucketNotEncrypted"
-  source_code_dir           = "${path.module}/../../source"
+  package_location          = var.package_location
   handler                   = "s3_bucket_not_encrypted.lambda_handler"
   lambda_runtime            = "python3.7"
   environment_variable_map = {
