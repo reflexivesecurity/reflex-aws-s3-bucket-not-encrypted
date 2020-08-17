@@ -19,6 +19,6 @@ module "assume_role" {
 }
 EOF
 
-  lambda_execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ReflexS3BucketNotEncryptedLambdaExecution"
+  lambda_execution_role_arn = "arn:aws:iam::${var.parent_account}:role/ReflexS3BucketNotEncryptedLambdaExecution"
 
 }
