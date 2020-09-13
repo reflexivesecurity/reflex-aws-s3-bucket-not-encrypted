@@ -1,8 +1,8 @@
 data "aws_caller_identity" "current" {}
 module "assume_role" {
-  source = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/sqs_lambda/modules/iam_assume_role?ref=v2.1.0"
+  source = "git::https://github.com/reflexivesecurity/reflex-engine.git//modules/sqs_lambda/modules/iam_assume_role?ref=v2.1.0"
 
-  function_name             = "S3BucketNotEncrypted"
+  function_name        = "S3BucketNotEncrypted"
   custom_lambda_policy = <<EOF
 {
   "Version": "2012-10-17",
