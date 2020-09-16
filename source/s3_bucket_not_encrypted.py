@@ -58,8 +58,9 @@ class S3BucketNotEncrypted(AWSRule):
 def lambda_handler(event, _):
     """ Handles the incoming event """
     print(event)
-    if subscription_confirmation.is_subscription_confirmation(event["Records"][0]["body"]):
-        subscription_confirmation.confirm_subscription(event["Records"][0]["body"])
+    event_payload = json.loads(event["Records"][0]["body"])
+    if subscription_confirmation.is_subscription_confirmation(event_payload):
+        subscription_confirmation.confirm_subscription(event_payload)
         return
-    s3_rule = S3BucketNotEncrypted(json.loads(event["Records"][0]["body"]))
+    s3_rule = S3BucketNotEncrypted(event_payload)
     s3_rule.run_compliance_rule()
