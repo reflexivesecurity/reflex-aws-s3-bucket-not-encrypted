@@ -1,5 +1,5 @@
 module "cwe" {
-  source      = "git::https://github.com/reflexivesecurity/reflex-engine.git//modules/cwe?ref=v2.1.0"
+  source      = "git::https://github.com/reflexivesecurity/reflex-engine.git//modules/cwe?ref=v2.1.1"
   name        = "S3BucketNotEncrypted"
   description = "Rule to enforce S3 bucket encryption"
 

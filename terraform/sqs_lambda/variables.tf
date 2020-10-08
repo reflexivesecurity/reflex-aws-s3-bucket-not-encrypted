@@ -11,11 +11,13 @@ variable "reflex_kms_key_id" {
 variable "cloudwatch_event_rule_id" {
   description = "Easy name of CWE"
   type        = string
+  default     = null
 }
 
 variable "cloudwatch_event_rule_arn" {
   description = "Full arn of CWE"
   type        = string
+  default     = null
 }
 
 variable "mode" {
