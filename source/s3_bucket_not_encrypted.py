@@ -1,6 +1,7 @@
 """ Module for enforcing S3BucketNotEncrypted """
 
 import json
+import os
 
 import boto3
 from reflex_core import AWSRule, subscription_confirmation
@@ -18,6 +19,7 @@ class S3BucketNotEncrypted(AWSRule):
         """ To be implemented by every rule """
         self.raw_event = event
         self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
+        self.encryption_key = os.environ.get("ENCRYPTION_KEY")
 
     def resource_compliant(self):
         """ Check if the resource is compliant. Return True if compliant, False otherwise """
@@ -37,14 +39,33 @@ class S3BucketNotEncrypted(AWSRule):
 
     def encrypt_bucket(self):
         """ Encrypt the S3 bucket """
-        self.client.put_bucket_encryption(
-            Bucket=self.bucket_name,
-            ServerSideEncryptionConfiguration={
-                "Rules": [
-                    {"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}},
-                ]
-            },
-        )
+        if self.encryption_key.lower() == "aes256":
+            self.client.put_bucket_encryption(
+                Bucket=self.bucket_name,
+                ServerSideEncryptionConfiguration={
+                    "Rules": [
+                        {
+                            "ApplyServerSideEncryptionByDefault": {
+                                "SSEAlgorithm": "AES256"
+                            }
+                        },
+                    ]
+                },
+            )
+        else:
+            self.client.put_bucket_encryption(
+                Bucket=self.bucket_name,
+                ServerSideEncryptionConfiguration={
+                    "Rules": [
+                        {
+                            "ApplyServerSideEncryptionByDefault": {
+                                "SSEAlgorithm": "aws:kms",
+                                "KMSMasterKeyID": self.encryption_key,
+                            }
+                        },
+                    ]
+                },
+            )
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
