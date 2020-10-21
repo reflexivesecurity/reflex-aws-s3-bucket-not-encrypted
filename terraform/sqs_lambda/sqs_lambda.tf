@@ -6,7 +6,7 @@ module "sqs_lambda" {
   function_name             = "S3BucketNotEncrypted"
   package_location          = var.package_location
   handler                   = "s3_bucket_not_encrypted.lambda_handler"
-  lambda_runtime            = "python3.7"
+  lambda_runtime            = "python3.6"
   environment_variable_map = {
     SNS_TOPIC = var.sns_topic_arn,
     MODE      = var.mode
