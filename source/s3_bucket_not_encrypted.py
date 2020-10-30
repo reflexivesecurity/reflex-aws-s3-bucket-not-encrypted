@@ -64,7 +64,7 @@ class S3BucketNotEncrypted(AWSRule):
                     {
                         "ApplyServerSideEncryptionByDefault": {
                             "SSEAlgorithm": "aws:kms",
-                            "KMSMasterKeyID": self.encryption_key_arn,
+                            "KMSMasterKeyID": self.encryption_key,
                         }
                     },
                 ]
