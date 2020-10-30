@@ -39,33 +39,37 @@ class S3BucketNotEncrypted(AWSRule):
 
     def encrypt_bucket(self):
         """ Encrypt the S3 bucket """
-        if self.encryption_key.lower() == "aes256":
-            self.client.put_bucket_encryption(
-                Bucket=self.bucket_name,
-                ServerSideEncryptionConfiguration={
-                    "Rules": [
-                        {
-                            "ApplyServerSideEncryptionByDefault": {
-                                "SSEAlgorithm": "AES256"
-                            }
-                        },
-                    ]
-                },
-            )
+        if self.encryption_key:
+            self.encrypt_bucket_kms()
         else:
-            self.client.put_bucket_encryption(
-                Bucket=self.bucket_name,
-                ServerSideEncryptionConfiguration={
-                    "Rules": [
-                        {
-                            "ApplyServerSideEncryptionByDefault": {
-                                "SSEAlgorithm": "aws:kms",
-                                "KMSMasterKeyID": self.encryption_key,
-                            }
-                        },
-                    ]
-                },
-            )
+            self.encrypt_bucket_aes()
+
+    def encrypt_bucket_aes(self):
+        """ Encrypt the bucket with AES256 encryption """
+        self.client.put_bucket_encryption(
+            Bucket=self.bucket_name,
+            ServerSideEncryptionConfiguration={
+                "Rules": [
+                    {"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}},
+                ]
+            },
+        )
+
+    def encrypt_bucket_kms(self):
+        """ Encrypt the bucket with AES256 encryption """
+        self.client.put_bucket_encryption(
+            Bucket=self.bucket_name,
+            ServerSideEncryptionConfiguration={
+                "Rules": [
+                    {
+                        "ApplyServerSideEncryptionByDefault": {
+                            "SSEAlgorithm": "aws:kms",
+                            "KMSMasterKeyID": self.encryption_key_arn,
+                        }
+                    },
+                ]
+            },
+        )
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """

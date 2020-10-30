@@ -27,10 +27,11 @@ variable "mode" {
 }
 
 variable "encryption_key" {
-  description = "The key to use for PutBucketEncryption. Valid choices are 'aes256' or the ARN of a KMS CMK."
+  description = "The key to use for PutBucketEncryption. Valid choices are the ARN or ID of a KMS CMK."
   type        = string
-  default     = "aes256"
+  default     = ""
 }
+
 variable "package_location" {
   description = "Path for the Lambda deployment package"
   type        = string
