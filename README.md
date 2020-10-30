@@ -19,7 +19,7 @@ rules:
 
 or add it directly to your Terraform:  
 ```
-module "enforce-s3-encryption" {
+module "s3-bucket-not-encrypted" {
   source            = "git::https://github.com/reflexivesecurity/reflex-aws-s3-bucket-not-encrypted.git?ref=latest"
   sns_topic_arn     = module.central-sns-topic.arn
   reflex_kms_key_id = module.reflex-kms-key.key_id
