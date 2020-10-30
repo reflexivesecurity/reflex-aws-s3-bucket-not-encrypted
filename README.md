@@ -11,7 +11,7 @@ To use this rule either add it to your `reflex.yaml` configuration file:
 ```
 rules:
   aws:
-    - enforce-s3-encryption:
+    - s3-bucket-not-encrypted:
         configuration:
           mode: remediate
         version: latest
