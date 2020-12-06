@@ -9,8 +9,6 @@ from reflex_core import AWSRule, subscription_confirmation
 class S3BucketNotEncrypted(AWSRule):
     """ AWS rule for ensuring S3 bucket encryption """
 
-    client = boto3.client("s3")
-
     def __init__(self, event):
         super().__init__(event)
 
