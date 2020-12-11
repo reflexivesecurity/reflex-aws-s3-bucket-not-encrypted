@@ -1,7 +1,6 @@
 """ Module for enforcing S3BucketNotEncrypted """
 
 import json
-import os
 
 import boto3
 from reflex_core import AWSRule, subscription_confirmation
@@ -17,7 +16,6 @@ class S3BucketNotEncrypted(AWSRule):
         """ To be implemented by every rule """
         self.raw_event = event
         self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
-        self.encryption_key = os.environ.get("ENCRYPTION_KEY")
 
     def resource_compliant(self):
         """ Check if the resource is compliant. Return True if compliant, False otherwise """
@@ -37,34 +35,11 @@ class S3BucketNotEncrypted(AWSRule):
 
     def encrypt_bucket(self):
         """ Encrypt the S3 bucket """
-        if self.encryption_key:
-            self.encrypt_bucket_kms()
-        else:
-            self.encrypt_bucket_aes()
-
-    def encrypt_bucket_aes(self):
-        """ Encrypt the bucket with AES256 encryption """
         self.client.put_bucket_encryption(
             Bucket=self.bucket_name,
             ServerSideEncryptionConfiguration={
                 "Rules": [
                     {"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}},
-                ]
-            },
-        )
-
-    def encrypt_bucket_kms(self):
-        """ Encrypt the bucket with AES256 encryption """
-        self.client.put_bucket_encryption(
-            Bucket=self.bucket_name,
-            ServerSideEncryptionConfiguration={
-                "Rules": [
-                    {
-                        "ApplyServerSideEncryptionByDefault": {
-                            "SSEAlgorithm": "aws:kms",
-                            "KMSMasterKeyID": self.encryption_key,
-                        }
-                    },
                 ]
             },
         )

@@ -26,12 +26,6 @@ variable "mode" {
   default     = "detect"
 }
 
-variable "encryption_key" {
-  description = "The key to use for PutBucketEncryption. Valid choices are the ARN or ID of a KMS CMK."
-  type        = string
-  default     = ""
-}
-
 variable "package_location" {
   description = "Path for the Lambda deployment package"
   type        = string
