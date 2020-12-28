@@ -32,7 +32,12 @@ class S3BucketNotEncrypted(AWSRule):
         try:
             self.client.get_bucket_encryption(Bucket=self.bucket_name)
             return True
-        except Exception:
+        except self.client.exceptions.ClientError as error:
+            if (
+                error.response["Error"]["Code"]
+                != "ServerSideEncryptionConfigurationNotFoundError"
+            ):
+                raise
             return False
 
     def encrypt_bucket(self):
