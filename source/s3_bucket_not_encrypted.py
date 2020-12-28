@@ -73,7 +73,10 @@ class S3BucketNotEncrypted(AWSRule):
         """ Returns a message about the remediation action that occurred """
         message = f"The S3 bucket {self.bucket_name} was unencrypted. "
         if self.should_remediate():
-            message += "AES-256 encryption was enabled."
+            if self.encryption_key:
+                message += f"Encryption was enabled using KMS CMK {self.encryption_key}"
+            else:
+                message += "AES-256 encryption was enabled."
 
         return message
 
